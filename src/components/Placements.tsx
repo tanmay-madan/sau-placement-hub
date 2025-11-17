@@ -1,8 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, Briefcase } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const Placements = () => {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
   const opportunities = [
     {
       company: "Tech Solutions Pvt Ltd",
@@ -41,7 +45,10 @@ const Placements = () => {
   return (
     <section id="placements" className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={cn("text-center mb-16 animate-on-scroll", titleVisible && "visible")}
+        >
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
             Current Opportunities
           </h2>
@@ -50,9 +57,16 @@ const Placements = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div 
+          ref={contentRef}
+          className={cn("grid md:grid-cols-2 gap-6 animate-on-scroll", contentVisible && "visible")}
+        >
           {opportunities.map((opportunity, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow border-border">
+            <Card 
+              key={index} 
+              className="hover:shadow-xl transition-all duration-300 border-border hover:border-primary/50 hover:scale-105"
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
               <CardHeader>
                 <div className="flex items-start justify-between mb-2">
                   <div>

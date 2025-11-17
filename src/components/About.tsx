@@ -1,6 +1,10 @@
 import { Target, Users, Award, TrendingUp } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const About = () => {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
   const features = [
     {
       icon: Target,
@@ -27,7 +31,10 @@ const About = () => {
   return (
     <section id="about" className="py-20 bg-muted">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={cn("text-center mb-16 animate-on-scroll", titleVisible && "visible")}
+        >
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
             About Our Placement Cell
           </h2>
@@ -36,22 +43,27 @@ const About = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {features.map((feature, index) => (
-            <div 
-              key={index}
-              className="bg-card p-6 rounded-lg border border-border hover:shadow-lg transition-shadow"
-            >
+        <div 
+          ref={contentRef}
+          className={cn("animate-on-scroll", contentVisible && "visible")}
+        >
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {features.map((feature, index) => (
+              <div 
+                key={index}
+                className="bg-card p-6 rounded-lg border border-border hover:shadow-xl hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                 <feature.icon className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-semibold text-lg mb-2 text-card-foreground">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>
             </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="bg-card rounded-xl p-8 md:p-12 border border-border">
+          <div className="bg-card rounded-xl p-8 md:p-12 border border-border shadow-lg">
           <h3 className="font-display text-3xl font-bold mb-6 text-card-foreground">About South Asian University</h3>
           <div className="prose prose-lg max-w-none">
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -63,6 +75,7 @@ const About = () => {
               Our Placement Cell works tirelessly to ensure that SAU students are connected with top employers across 
               various industries, providing them with opportunities to launch successful careers in their chosen fields.
             </p>
+            </div>
           </div>
         </div>
       </div>

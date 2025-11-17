@@ -1,7 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, BookOpen, Users2, TrendingUp } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const ForStudents = () => {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
   const resources = [
     {
       icon: FileText,
@@ -28,7 +32,10 @@ const ForStudents = () => {
   return (
     <section id="students" className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={cn("text-center mb-16 animate-on-scroll", titleVisible && "visible")}
+        >
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
             For Students
           </h2>
@@ -37,9 +44,17 @@ const ForStudents = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {resources.map((resource, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow border-border">
+        <div 
+          ref={contentRef}
+          className={cn("animate-on-scroll", contentVisible && "visible")}
+        >
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            {resources.map((resource, index) => (
+              <Card 
+                key={index} 
+                className="hover:shadow-xl transition-all duration-300 border-border hover:border-primary/50 hover:scale-105"
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
               <CardHeader>
                 <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                   <resource.icon className="w-6 h-6 text-accent" />
@@ -50,10 +65,10 @@ const ForStudents = () => {
                 <CardDescription className="text-base">{resource.description}</CardDescription>
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="bg-primary/5 border border-primary/20 rounded-xl p-8 md:p-12">
+          <div className="bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 border border-primary/20 rounded-xl p-8 md:p-12 shadow-lg">
           <h3 className="font-display text-3xl font-bold mb-6 text-center">Important Information</h3>
           <div className="grid md:grid-cols-2 gap-8 text-foreground">
             <div>
@@ -74,6 +89,7 @@ const ForStudents = () => {
                 <li>• Technical and HR interviews</li>
                 <li>• Offer letter and onboarding</li>
               </ul>
+            </div>
             </div>
           </div>
         </div>

@@ -22,6 +22,7 @@ export default {
         'hero-overlay': 'hsl(var(--hero-overlay))',
         'stats-bg': 'hsl(var(--stats-bg))',
         'gold-accent': 'hsl(var(--gold-accent))',
+        'glow-blue': 'hsl(var(--glow-blue))',
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
