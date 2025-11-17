@@ -13,8 +13,15 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'display': ['Playfair Display', 'serif'],
+        'sans': ['Inter', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
+        'hero-overlay': 'hsl(var(--hero-overlay))',
+        'stats-bg': 'hsl(var(--stats-bg))',
+        'gold-accent': 'hsl(var(--gold-accent))',
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
