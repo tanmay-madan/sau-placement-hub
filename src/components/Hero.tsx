@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import heroCampus from "@/assets/hero-campus.jpg";
+import sauCampus from "@/assets/sau-campus.jpg";
+import sauLogo from "@/assets/sau-logo.png";
 
 const Hero = () => {
   return (
@@ -8,26 +9,31 @@ const Hero = () => {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroCampus})` }}
+        style={{ backgroundImage: `url(${sauCampus})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-hero-overlay/80 via-hero-overlay/70 to-hero-overlay/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-hero-overlay/85 via-hero-overlay/75 to-hero-overlay/90" />
+      </div>
+
+      {/* Logo positioned top left */}
+      <div className="absolute top-20 left-8 md:left-16 z-10">
+        <img src={sauLogo} alt="South Asian University" className="w-32 md:w-40 lg:w-48 drop-shadow-2xl" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <h1 className="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight glow-text">
           Internship & Placement Cell
         </h1>
-        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto font-light">
+        <p className="text-xl md:text-2xl lg:text-3xl text-white/95 mb-8 max-w-3xl mx-auto font-light glow-text">
           South Asian University
         </p>
-        <p className="text-lg text-white/80 mb-12 max-w-2xl mx-auto">
-          Bridging the gap between academic excellence and professional success
+        <p className="text-base md:text-lg text-white/80 mb-12 max-w-2xl mx-auto italic">
+          Knowledge Without Borders
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button 
             size="lg"
-            className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-6 text-lg"
+            className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-6 text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
             onClick={() => document.getElementById('placements')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Ongoing Opportunities
@@ -36,7 +42,7 @@ const Hero = () => {
           <Button 
             size="lg"
             variant="outline"
-            className="border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg"
+            className="border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Contact Us

@@ -1,26 +1,18 @@
 import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-primary/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-white/10 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">SAU</span>
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
+              <span className="text-primary font-bold text-lg">SAU</span>
             </div>
             <div className="hidden md:block">
               <h1 className="text-white font-semibold text-sm leading-tight">
@@ -31,22 +23,22 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
-            <a href="#home" className="text-white hover:text-accent transition-colors font-medium">
+            <a href="#home" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               Home
             </a>
-            <a href="#about" className="text-white hover:text-accent transition-colors font-medium">
+            <a href="#about" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               About
             </a>
-            <a href="#placements" className="text-white hover:text-accent transition-colors font-medium">
+            <a href="#placements" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               Placements
             </a>
-            <a href="#recruiters" className="text-white hover:text-accent transition-colors font-medium">
+            <a href="#recruiters" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               Recruiters
             </a>
-            <a href="#students" className="text-white hover:text-accent transition-colors font-medium">
+            <a href="#students" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               For Students
             </a>
-            <a href="#contact" className="text-white hover:text-accent transition-colors font-medium">
+            <a href="#contact" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               Contact
             </a>
           </div>
@@ -66,7 +58,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden py-4 border-t border-white/10">
+          <div className="lg:hidden py-4 border-t border-white/10 animate-fade-in">
             <div className="flex flex-col space-y-3">
               <a
                 href="#home"

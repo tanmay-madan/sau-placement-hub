@@ -1,11 +1,18 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const Contact = () => {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
   return (
     <section id="contact" className="py-20 bg-muted">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div 
+          ref={titleRef}
+          className={cn("text-center mb-16 animate-on-scroll", titleVisible && "visible")}
+        >
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
             Contact Us
           </h2>
@@ -14,9 +21,12 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div 
+          ref={contentRef}
+          className={cn("max-w-4xl mx-auto animate-on-scroll", contentVisible && "visible")}
+        >
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <Card className="border-border">
+            <Card className="border-border hover:shadow-xl transition-all duration-300 hover:border-primary/50 hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -35,7 +45,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border">
+            <Card className="border-border hover:shadow-xl transition-all duration-300 hover:border-primary/50 hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -54,7 +64,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border">
+            <Card className="border-border hover:shadow-xl transition-all duration-300 hover:border-primary/50 hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -71,7 +81,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border">
+            <Card className="border-border hover:shadow-xl transition-all duration-300 hover:border-primary/50 hover:scale-105">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -89,7 +99,7 @@ const Contact = () => {
             </Card>
           </div>
 
-          <Card className="bg-primary text-white border-primary">
+          <Card className="bg-gradient-to-br from-primary to-accent text-white border-primary shadow-xl">
             <CardContent className="p-8 text-center">
               <h3 className="font-display text-2xl font-bold mb-4">
                 Ready to Connect?
@@ -100,7 +110,7 @@ const Contact = () => {
               </p>
               <a 
                 href="mailto:placements@sau.edu" 
-                className="inline-block bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+                className="inline-block bg-white hover:bg-white/90 text-primary font-semibold px-8 py-3 rounded-lg transition-all hover:scale-105 shadow-lg"
               >
                 Send Us a Message
               </a>
