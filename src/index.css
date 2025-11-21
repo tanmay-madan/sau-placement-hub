@@ -26,23 +26,23 @@ All colors MUST be HSL.
     --muted: 217 20% 95%;
     --muted-foreground: 217 15% 40%;
 
-    --accent: 217 91% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 45 93% 58%;
+    --accent-foreground: 220 15% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 217 20% 90%;
     --input: 217 20% 90%;
-    --ring: 217 91% 40%;
+    --ring: 45 93% 58%;
 
     --radius: 0.5rem;
 
     /* Custom tokens for placement cell */
     --hero-overlay: 220 30% 8%;
     --stats-bg: 217 91% 35%;
-    --gold-accent: 217 91% 55%;
-    --glow-blue: 217 91% 60%;
+    --gold-accent: 45 93% 58%;
+    --glow-gold: 45 93% 65%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -80,21 +80,21 @@ All colors MUST be HSL.
     --muted: 220 25% 15%;
     --muted-foreground: 217 15% 65%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 45 93% 58%;
+    --accent-foreground: 220 15% 10%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 25% 18%;
     --input: 220 25% 18%;
-    --ring: 217 91% 55%;
+    --ring: 45 93% 58%;
 
     /* Custom tokens for placement cell dark mode */
     --hero-overlay: 220 30% 5%;
     --stats-bg: 217 91% 30%;
-    --gold-accent: 217 91% 55%;
-    --glow-blue: 217 91% 60%;
+    --gold-accent: 45 93% 58%;
+    --glow-gold: 45 93% 65%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -133,8 +133,15 @@ All colors MUST be HSL.
   }
 
   .glow-text:hover {
-    text-shadow: 0 0 20px hsl(var(--glow-blue)), 
-                 0 0 40px hsl(var(--glow-blue)),
-                 0 0 60px hsl(var(--glow-blue));
+    text-shadow: 0 0 20px hsl(var(--glow-gold)), 
+                 0 0 40px hsl(var(--glow-gold)),
+                 0 0 60px hsl(var(--glow-gold));
+  }
+
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }
