@@ -43,6 +43,11 @@ All colors MUST be HSL.
     --stats-bg: 217 91% 35%;
     --gold-accent: 45 93% 58%;
     --glow-gold: 45 93% 65%;
+    
+    /* Premium Button Colors */
+    --button-premium: 0 0% 100%;
+    --button-premium-foreground: 0 0% 0%;
+    --button-premium-hover: 0 0% 95%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -95,6 +100,11 @@ All colors MUST be HSL.
     --stats-bg: 217 91% 30%;
     --gold-accent: 45 93% 58%;
     --glow-gold: 45 93% 65%;
+    
+    /* Premium Button Colors Dark Mode */
+    --button-premium: 0 0% 95%;
+    --button-premium-foreground: 0 0% 10%;
+    --button-premium-hover: 0 0% 100%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
