@@ -14,8 +14,10 @@ const LoginAdmin = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle admin login logic here
-    console.log("Admin login:", { email, password });
+    // Store authentication and redirect
+    sessionStorage.setItem('isAuthenticated', 'true');
+    sessionStorage.setItem('userRole', 'admin');
+    navigate('/');
   };
 
   return (
