@@ -14,8 +14,10 @@ const LoginRecruiter = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle recruiter login logic here
-    console.log("Recruiter login:", { email, password });
+    // Store authentication and redirect
+    sessionStorage.setItem('isAuthenticated', 'true');
+    sessionStorage.setItem('userRole', 'recruiter');
+    navigate('/');
   };
 
   return (

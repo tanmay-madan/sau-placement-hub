@@ -8,8 +8,10 @@ import ForStudents from "@/components/ForStudents";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import AuthGate from "@/components/AuthGate";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -20,10 +22,19 @@ const Index = () => {
     }
   }, []);
 
-  const handleAuthentication = () => {
+  const handleLoadComplete = () => {
+    setIsLoading(false);
+  };
+
+  const handleAuthentication = (role: string) => {
     setIsAuthenticated(true);
     sessionStorage.setItem('isAuthenticated', 'true');
+    sessionStorage.setItem('userRole', role);
   };
+
+  if (isLoading) {
+    return <LoadingScreen onLoadComplete={handleLoadComplete} />;
+  }
 
   if (!isAuthenticated) {
     return <AuthGate onAuthenticated={handleAuthentication} />;
