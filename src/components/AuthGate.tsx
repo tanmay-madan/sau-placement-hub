@@ -3,24 +3,15 @@ import { Button } from "@/components/ui/button";
 import { User, Building2, Shield } from "lucide-react";
 import sauEntrance from "@/assets/sau-entrance.png";
 import sauLogo from "@/assets/sau-logo.png";
-import { useNavigate } from "react-router-dom";
 
 interface AuthGateProps {
   onAuthenticated: (role: string) => void;
 }
 
 const AuthGate = ({ onAuthenticated }: AuthGateProps) => {
-  const navigate = useNavigate();
-
   const handleRoleSelection = (role: string) => {
-    // Navigate to the specific login page based on role
-    if (role === "student") {
-      navigate("/login/student");
-    } else if (role === "recruiter") {
-      navigate("/login/recruiter");
-    } else if (role === "admin") {
-      navigate("/login/admin");
-    }
+    sessionStorage.setItem('userRole', role);
+    onAuthenticated(role);
   };
 
   return (
