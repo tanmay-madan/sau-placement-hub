@@ -2,16 +2,53 @@ import { Building2 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 
-const Recruiters = () => {
+interface RecruitersProps {
+  role?: string;
+}
+
+const Recruiters = ({ role = 'student' }: RecruitersProps) => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
-  const recruiters = [
-    "Deloitte", "KPMG", "PwC", "Ernst & Young",
-    "Infosys", "TCS", "Wipro", "HCL Technologies",
-    "ICICI Bank", "HDFC Bank", "State Bank of India", "Axis Bank",
-    "Amazon", "Microsoft", "Google", "IBM",
-    "Flipkart", "Paytm", "Ola", "Swiggy"
-  ];
+  
+  const getRecruitersForRole = () => {
+    if (role === 'admin') {
+      return [
+        "Deloitte", "KPMG", "PwC", "Ernst & Young",
+        "Infosys", "TCS", "Wipro", "HCL Technologies",
+        "ICICI Bank", "HDFC Bank", "State Bank of India", "Axis Bank",
+        "Amazon", "Microsoft", "Google", "IBM",
+        "Flipkart", "Paytm", "Ola", "Swiggy"
+      ];
+    } else if (role === 'recruiter') {
+      return [
+        "Your Company", "Partner Company A", "Partner Company B", "Partner Company C",
+        "Tech Alliance Ltd", "Business Solutions", "Innovation Hub", "Growth Partners",
+        "Digital Ventures", "Smart Systems", "Future Tech", "Elite Services"
+      ];
+    } else {
+      return [
+        "Deloitte", "KPMG", "PwC", "Ernst & Young",
+        "Infosys", "TCS", "Wipro", "HCL Technologies",
+        "ICICI Bank", "HDFC Bank", "State Bank of India", "Axis Bank",
+        "Amazon", "Microsoft", "Google", "IBM",
+        "Flipkart", "Paytm", "Ola", "Swiggy"
+      ];
+    }
+  };
+
+  const recruiters = getRecruitersForRole();
+
+  const getTitle = () => {
+    if (role === 'admin') return 'Registered Recruiters';
+    if (role === 'recruiter') return 'Recruiting Network';
+    return 'Our Recruiters';
+  };
+
+  const getSubtitle = () => {
+    if (role === 'admin') return 'Companies actively hiring our students';
+    if (role === 'recruiter') return 'Partner companies in our recruitment ecosystem';
+    return 'Top organizations that trust our students';
+  };
 
   return (
     <section id="recruiters" className="py-20 bg-muted">
@@ -21,10 +58,10 @@ const Recruiters = () => {
           className={cn("text-center mb-16 animate-on-scroll", titleVisible && "visible")}
         >
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Our Recruiters
+            {getTitle()}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Top organizations that trust our students
+            {getSubtitle()}
           </p>
         </div>
 
