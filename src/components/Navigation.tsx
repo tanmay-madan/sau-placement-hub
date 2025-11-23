@@ -41,6 +41,16 @@ const Navigation = () => {
             <a href="#contact" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               Contact
             </a>
+            <Button
+              onClick={() => {
+                sessionStorage.clear();
+                window.location.href = '/';
+              }}
+              variant="outline"
+              className="text-white border-white hover:bg-white hover:text-primary"
+            >
+              Logout
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -102,6 +112,16 @@ const Navigation = () => {
               >
                 Contact
               </a>
+              <Button
+                onClick={() => {
+                  sessionStorage.clear();
+                  window.location.href = '/';
+                }}
+                variant="outline"
+                className="text-white border-white hover:bg-white hover:text-primary mx-4"
+              >
+                Logout
+              </Button>
             </div>
           </div>
         )}

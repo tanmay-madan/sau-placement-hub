@@ -40,14 +40,16 @@ const Index = () => {
     return <AuthGate onAuthenticated={handleAuthentication} />;
   }
 
+  const userRole = sessionStorage.getItem('userRole') || 'student';
+
   return (
     <div className="min-h-screen">
       <Hero />
-      <Statistics />
+      <Statistics role={userRole} />
       <About />
-      <Placements />
-      <Recruiters />
-      <ForStudents />
+      <Placements role={userRole} />
+      <Recruiters role={userRole} />
+      <ForStudents role={userRole} />
       <Contact />
       <Footer />
     </div>

@@ -3,31 +3,52 @@ import { FileText, BookOpen, Users2, TrendingUp } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 
-const ForStudents = () => {
+interface ForStudentsProps {
+  role?: string;
+}
+
+const ForStudents = ({ role = 'student' }: ForStudentsProps) => {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
-  const resources = [
-    {
-      icon: FileText,
-      title: "Resume Building",
-      description: "Get expert guidance on creating professional resumes that stand out"
-    },
-    {
-      icon: BookOpen,
-      title: "Interview Preparation",
-      description: "Mock interviews and training sessions to boost your confidence"
-    },
-    {
-      icon: Users2,
-      title: "Soft Skills Training",
-      description: "Communication, leadership, and professional etiquette workshops"
-    },
-    {
-      icon: TrendingUp,
-      title: "Career Counseling",
-      description: "One-on-one guidance to help you make informed career decisions"
+  
+  const getResourcesForRole = () => {
+    if (role === 'admin') {
+      return [
+        { icon: FileText, title: "Training Programs", description: "Manage and schedule student training programs and workshops" },
+        { icon: BookOpen, title: "Resource Library", description: "Upload and organize educational materials for students" },
+        { icon: Users2, title: "Student Database", description: "Access and manage student profiles and placement records" },
+        { icon: TrendingUp, title: "Analytics Dashboard", description: "Track placement metrics, success rates, and student progress" }
+      ];
+    } else if (role === 'recruiter') {
+      return [
+        { icon: FileText, title: "Student Profiles", description: "Browse detailed profiles and resumes of qualified candidates" },
+        { icon: BookOpen, title: "Recruitment Guide", description: "Best practices and guidelines for campus recruitment" },
+        { icon: Users2, title: "Candidate Pool", description: "Access to pre-screened and vetted student candidates" },
+        { icon: TrendingUp, title: "Hiring Analytics", description: "Track your recruitment activities and candidate pipeline" }
+      ];
+    } else {
+      return [
+        { icon: FileText, title: "Resume Building", description: "Get expert guidance on creating professional resumes that stand out" },
+        { icon: BookOpen, title: "Interview Preparation", description: "Mock interviews and training sessions to boost your confidence" },
+        { icon: Users2, title: "Soft Skills Training", description: "Communication, leadership, and professional etiquette workshops" },
+        { icon: TrendingUp, title: "Career Counseling", description: "One-on-one guidance to help you make informed career decisions" }
+      ];
     }
-  ];
+  };
+
+  const resources = getResourcesForRole();
+
+  const getTitle = () => {
+    if (role === 'admin') return 'Administrative Tools';
+    if (role === 'recruiter') return 'Recruiter Resources';
+    return 'For Students';
+  };
+
+  const getSubtitle = () => {
+    if (role === 'admin') return 'Tools and resources to manage the placement cell efficiently';
+    if (role === 'recruiter') return 'Everything you need for successful campus recruitment';
+    return 'Resources and support to help you succeed in your career journey';
+  };
 
   return (
     <section id="students" className="py-20 bg-background">
@@ -37,10 +58,10 @@ const ForStudents = () => {
           className={cn("text-center mb-16 animate-on-scroll", titleVisible && "visible")}
         >
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            For Students
+            {getTitle()}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Resources and support to help you succeed in your career journey
+            {getSubtitle()}
           </p>
         </div>
 
