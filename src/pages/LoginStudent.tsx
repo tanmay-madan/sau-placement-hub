@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import sauEntrance from "@/assets/sau-entrance.png";
 import sauLogo from "@/assets/sau-logo.png";
 import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/contexts/AuthContext";
 
 const LoginStudent = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { signUp, signIn, user } = useAuth();
   const [isSignUp, setIsSignUp] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,72 +23,32 @@ const LoginStudent = () => {
     confirmPassword: ""
   });
 
-  React.useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      if (isSignUp) {
-        if (formData.password !== formData.confirmPassword) {
-          toast({
-            title: "Error",
-            description: "Passwords do not match",
-            variant: "destructive",
-          });
-          setLoading(false);
-          return;
-        }
-
-        if (!formData.fullName || !formData.program || !formData.year) {
-          toast({
-            title: "Error",
-            description: "Please fill in all required fields",
-            variant: "destructive",
-          });
-          setLoading(false);
-          return;
-        }
-
-        await signUp(formData.email, formData.password, {
-          fullName: formData.fullName,
-          program: formData.program,
-          year: formData.year,
-          phone: formData.phone,
-          role: 'student',
-        });
-
-        toast({
-          title: "Success",
-          description: "Account created successfully!",
-        });
-      } else {
-        await signIn(formData.email, formData.password);
-        toast({
-          title: "Success",
-          description: "Logged in successfully!",
-        });
-      }
-
-      navigate('/');
-    } catch (error: any) {
+    
+    if (isSignUp && formData.password !== formData.confirmPassword) {
       toast({
         title: "Error",
-        description: error.message || "Authentication failed",
+        description: "Passwords do not match",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
+      return;
     }
+
+    // Store authentication and redirect
+    sessionStorage.setItem('isAuthenticated', 'true');
+    sessionStorage.setItem('userRole', 'student');
+    
+    toast({
+      title: "Success",
+      description: isSignUp ? "Account created successfully!" : "Logged in successfully!",
+    });
+    
+    navigate('/');
   };
 
   return (
@@ -235,19 +192,11 @@ const LoginStudent = () => {
               </div>
             )}
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-gold-accent hover:bg-gold-accent/90 text-foreground font-bold py-6 text-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+            <Button 
+              type="submit" 
+              className="w-full bg-gold-accent hover:bg-gold-accent/90 text-foreground font-bold py-6 text-lg shadow-lg hover:shadow-xl transition-all"
             >
-              {loading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {isSignUp ? "Creating Account..." : "Signing In..."}
-                </>
-              ) : (
-                <>{isSignUp ? "Create Account" : "Sign In"}</>
-              )}
+              {isSignUp ? "Create Account" : "Sign In"}
             </Button>
 
             <div className="text-center space-y-2">

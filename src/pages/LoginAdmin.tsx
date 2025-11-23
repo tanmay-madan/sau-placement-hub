@@ -2,47 +2,22 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import sauEntrance from "@/assets/sau-entrance.png";
 import sauLogo from "@/assets/sau-logo.png";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/contexts/AuthContext";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const { signIn, user, isAdmin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  React.useEffect(() => {
-    if (user && isAdmin) {
-      navigate('/');
-    }
-  }, [user, isAdmin, navigate]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      await signIn(email, password);
-      toast({
-        title: "Success",
-        description: "Admin login successful!",
-      });
-      navigate('/');
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Invalid credentials",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+    // Store authentication and redirect
+    sessionStorage.setItem('isAuthenticated', 'true');
+    sessionStorage.setItem('userRole', 'admin');
+    navigate('/');
   };
 
   return (
@@ -96,19 +71,11 @@ const LoginAdmin = () => {
               />
             </div>
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-gold-accent hover:bg-gold-accent/90 text-foreground font-bold py-6 text-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+            <Button 
+              type="submit" 
+              className="w-full bg-gold-accent hover:bg-gold-accent/90 text-foreground font-bold py-6 text-lg shadow-lg hover:shadow-xl transition-all"
             >
-              {loading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing In...
-                </>
-              ) : (
-                <>Sign In</>
-              )}
+              Sign In
             </Button>
 
             <div className="text-center">
