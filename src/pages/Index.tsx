@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Statistics from "@/components/Statistics";
@@ -11,16 +12,21 @@ import AuthGate from "@/components/AuthGate";
 import LoadingScreen from "@/components/LoadingScreen";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     // Check if user was previously authenticated
     const authStatus = sessionStorage.getItem('isAuthenticated');
-    if (authStatus === 'true') {
+    const role = sessionStorage.getItem('userRole');
+    
+    if (authStatus === 'true' && role) {
       setIsAuthenticated(true);
+      // Redirect to appropriate dashboard
+      navigate(`/dashboard/${role}`);
     }
-  }, []);
+  }, [navigate]);
 
   const handleLoadComplete = () => {
     setIsLoading(false);
@@ -30,6 +36,8 @@ const Index = () => {
     setIsAuthenticated(true);
     sessionStorage.setItem('isAuthenticated', 'true');
     sessionStorage.setItem('userRole', role);
+    // Redirect to appropriate dashboard
+    navigate(`/dashboard/${role}`);
   };
 
   if (isLoading) {
