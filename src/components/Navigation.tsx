@@ -1,9 +1,26 @@
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [userRole, setUserRole] = useState<string>('');
+
+  useEffect(() => {
+    const role = sessionStorage.getItem('userRole') || '';
+    setUserRole(role);
+    
+    // Set different notification counts based on role
+    if (role === 'student') {
+      setNotificationCount(5); // 3 interviews + 2 offers
+    } else if (role === 'recruiter') {
+      setNotificationCount(45); // Pending reviews
+    } else if (role === 'admin') {
+      setNotificationCount(23); // Pending approvals
+    }
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-white/10 shadow-lg">
@@ -23,7 +40,7 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
-            <a href="#home" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
+            <a href="/" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               Home
             </a>
             <a href="#about" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
@@ -41,6 +58,18 @@ const Navigation = () => {
             <a href="#contact" className="text-white hover:text-accent transition-colors font-medium hover:scale-110 transform duration-200">
               Contact
             </a>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:text-accent hover:bg-white/10 relative"
+            >
+              <Bell className="h-5 w-5" />
+              {notificationCount > 0 && (
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-destructive text-white">
+                  {notificationCount > 99 ? '99+' : notificationCount}
+                </Badge>
+              )}
+            </Button>
             <Button
               onClick={() => {
                 sessionStorage.clear();
@@ -112,6 +141,21 @@ const Navigation = () => {
               >
                 Contact
               </a>
+              <div className="px-4 py-2 flex items-center justify-between">
+                <span className="text-white font-medium">Notifications</span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:text-accent hover:bg-white/10 relative"
+                >
+                  <Bell className="h-5 w-5" />
+                  {notificationCount > 0 && (
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-destructive text-white">
+                      {notificationCount > 99 ? '99+' : notificationCount}
+                    </Badge>
+                  )}
+                </Button>
+              </div>
               <Button
                 onClick={() => {
                   sessionStorage.clear();
